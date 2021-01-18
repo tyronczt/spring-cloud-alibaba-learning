@@ -1,4 +1,4 @@
-## Spring Cloud Alibaba 学习
+Spring Cloud Alibaba 学习
 
 > 学习视频（B站）：https://www.bilibili.com/video/BV1Mt4y1i7JW
 
@@ -95,3 +95,49 @@ public class ConsumerController {
 启动后浏览器查看
 
 ![consumer-instances](https://raw.githubusercontent.com/tyronczt/spring-cloud-alibaba-learning/master/picture/consumer-instances.png)
+
+#### 通过 RestTemplate 远程调用 Provider 的服务
+
+**provider 提供服务**
+
+```java
+//SPEL
+@Value("${server.port}")
+private String port;
+
+@GetMapping("/index")
+public String index() {
+	return port;
+}
+```
+
+consumer 配置  RestTemplate
+
+```java
+@Configuration
+public class ConsumerConfig {
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+}
+```
+
+ConsumerController 随机调用 provider 服务
+
+```java
+@Autowired
+private RestTemplate restTemplate;
+
+@GetMapping("/index")
+public String index() {
+    List<ServiceInstance> provider = discoveryClient.getInstances("provider");
+    int index = ThreadLocalRandom.current().nextInt(provider.size());
+    String url = provider.get(index).getUri() + "/index";
+    return "consumer随机远程调用provier：" + this.restTemplate.getForObject(url, String.class);
+}
+```
+
+
+
