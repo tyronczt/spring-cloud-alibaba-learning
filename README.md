@@ -1,4 +1,4 @@
-Spring Cloud Alibaba 学习
+### Spring Cloud Alibaba 学习
 
 > 学习视频（B站）：https://www.bilibili.com/video/BV1Mt4y1i7JW
 
@@ -23,7 +23,7 @@ Spring Cloud Alibaba 学习
 
 具体pom.xml文件，参看代码： https://github.com/tyronczt/spring-cloud-alibaba-learning/blob/master/pom.xml
 
-#### 一、Nacos 服务注册与发现
+### 一、Nacos 服务注册与发现
 
 > 官网安装包下载地址：https://github.com/alibaba/nacos/releases/tag/1.2.1
 >
@@ -138,6 +138,104 @@ public String index() {
     return "consumer随机远程调用provier：" + this.restTemplate.getForObject(url, String.class);
 }
 ```
+
+
+
+## 二、Ribbon负载均衡
+
+简介：
+
+Spring Cloud Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具，它基于 Netflix Ribbon 实现。通过 Spring Cloud 的封装，可以让我们轻松地将面向服务的 REST 模版请求自动转换成客户端负载均衡的服务调用。
+
+
+
+### 整合ribbon
+
+由于在consumer的pom中已经引入 `spring-cloud-starter-alibaba-nacos-discovery` , 它已经引入ribbon：
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+    <version>2.2.2.RELEASE</version>
+    <scope>compile</scope>
+</dependency>
+```
+
+所以只需要在 restTemplate 的 bean 中添加 `@LoadBalanced` 注解，即可以使用ribbon
+
+```java
+@Configuration
+public class ConsumerConfig {
+
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+
+}
+```
+
+ConsumerController 调用接口，默认采用 **轮询** 方式
+
+```java
+@RestController
+public class ConsumerController {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @GetMapping("/index")
+    public String index() {
+        return "consumer远程调用provier：" + this.restTemplate.getForObject("http://provider/index", String.class);
+    }
+}
+```
+
+设置调用方式为 **随机**【只需在yml配置文件中添加已经定好的规则即可】：
+
+```yml
+provider:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+```
+
+设置调用方式为 **Nacos 权重**
+
+```java
+@Slf4j
+public class NacosWeightedRule extends AbstractLoadBalancerRule {
+
+    @Autowired
+    private NacosDiscoveryProperties nacosDiscoveryProperties;
+
+    @Override
+    public void initWithNiwsConfig(IClientConfig iClientConfig) {
+        //读取配置文件
+    }
+
+    @Override
+    public Server choose(Object o) {
+        ILoadBalancer loadBalancer = this.getLoadBalancer();
+        BaseLoadBalancer baseLoadBalancer = (BaseLoadBalancer) loadBalancer;
+        //获取要请求的微服务名称
+        String name = baseLoadBalancer.getName();
+        //获取服务发现的相关API
+        NamingService namingService = nacosDiscoveryProperties.namingServiceInstance();
+        try {
+            Instance instance = namingService.selectOneHealthyInstance(name);
+            log.info("选择的实例是port={},instance={}",instance.getPort(),instance);
+            return new NacosServer(instance);
+        } catch (NacosException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
+```
+
+
 
 
 

@@ -1,2 +1,5 @@
 server:
   port: 8888
+provider:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.tyron.consumer.configuration.NacosWeightedRuleConfig

@@ -29,12 +29,16 @@ public class ConsumerController {
         return this.discoveryClient.getInstances("provider");
     }
 
+//    @GetMapping("/index")
+//    public String index() {
+//        List<ServiceInstance> provider = discoveryClient.getInstances("provider");
+//        int index = ThreadLocalRandom.current().nextInt(provider.size());
+//        String url = provider.get(index).getUri() + "/index";
+//        return "consumer随机远程调用provier：" + this.restTemplate.getForObject(url, String.class);
+//    }
+
     @GetMapping("/index")
     public String index() {
-        List<ServiceInstance> provider = discoveryClient.getInstances("provider");
-        int index = ThreadLocalRandom.current().nextInt(provider.size());
-        String url = provider.get(index).getUri() + "/index";
-        return "consumer随机远程调用provier：" + this.restTemplate.getForObject(url, String.class);
+        return "consumer远程调用provier：" + this.restTemplate.getForObject("http://provider/index", String.class);
     }
-
 }
