@@ -3,7 +3,17 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    # sentinel的控制面板路径
+    sentinel:
+      transport:
+        dashboard: localhost:8080
   application:
     name: provider
 server:
   port: 3333
+# 配置限流路径
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
