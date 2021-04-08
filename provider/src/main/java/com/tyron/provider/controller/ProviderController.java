@@ -20,4 +20,9 @@ public class ProviderController {
     public String index() {
         return port;
     }
+
+    @GetMapping("/list")
+    public String list() {
+        return "list";
+    }
 }
