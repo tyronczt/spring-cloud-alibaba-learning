@@ -1,4 +1,4 @@
-package com.tyron.provider;
+package com.tyron.provider.test;
 
 import org.springframework.web.client.RestTemplate;
 
