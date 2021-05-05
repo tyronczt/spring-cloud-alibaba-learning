@@ -1,9 +1,11 @@
 package com.tyron.provider.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.tyron.provider.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -39,5 +41,13 @@ public class ProviderController {
     @GetMapping("/provider2")
     public String provider2() {
         return providerService.provider();
+    }
+
+    @GetMapping("/hot")
+    @SentinelResource("hot")
+    public String hot(
+            @RequestParam(value = "num1", required = false) Integer num1,
+            @RequestParam(value = "num2", required = false) Integer num2) {
+        return num1 + "-" + num2;
     }
 }
