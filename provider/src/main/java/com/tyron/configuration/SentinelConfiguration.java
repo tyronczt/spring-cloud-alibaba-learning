@@ -1,7 +1,7 @@
-package com.tyron.provider.configuration;
+package com.tyron.configuration;
 
 import com.alibaba.csp.sentinel.adapter.servlet.callback.WebCallbackManager;
-import com.tyron.provider.handler.ExceptionHandler;
+import com.tyron.handler.ExceptionHandler;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;

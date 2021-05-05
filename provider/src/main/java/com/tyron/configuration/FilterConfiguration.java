@@ -1,4 +1,4 @@
-package com.tyron.provider.configuration;
+package com.tyron.configuration;
 
 import com.alibaba.csp.sentinel.adapter.servlet.CommonFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

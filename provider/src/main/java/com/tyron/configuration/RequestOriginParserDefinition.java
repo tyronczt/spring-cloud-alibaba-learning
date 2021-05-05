@@ -1,4 +1,4 @@
-package com.tyron.provider.configuration;
+package com.tyron.configuration;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,4 +1,4 @@
-package com.tyron.consumer.configuration;
+package com.tyron.provider.configuration;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.tyron.consumer.configuration;
+package com.tyron.provider.configuration;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.ribbon.NacosServer;

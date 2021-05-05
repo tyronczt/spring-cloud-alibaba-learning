@@ -1,4 +1,4 @@
-package com.tyron.provider.handler;
+package com.tyron.handler;
 
 import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;

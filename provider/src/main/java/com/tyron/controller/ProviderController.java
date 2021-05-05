@@ -1,7 +1,7 @@
-package com.tyron.provider.controller;
+package com.tyron.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.tyron.provider.service.ProviderService;
+import com.tyron.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

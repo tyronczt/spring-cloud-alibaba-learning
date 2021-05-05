@@ -1,4 +1,4 @@
-package com.tyron.provider.service;
+package com.tyron.service;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.springframework.stereotype.Service;

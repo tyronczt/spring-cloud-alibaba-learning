@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>springcloudalibabademo</name>
     <description>Demo project for SpringCloud Alibaba Demo</description>
-
+    <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -60,4 +60,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
