@@ -3,3 +3,6 @@ server:
 provider:
   ribbon:
     NFLoadBalancerRuleClassName: com.tyron.consumer.configuration.NacosWeightedRuleConfig
+rocketmq:
+  name-server: 192.168.255.100:9876
+

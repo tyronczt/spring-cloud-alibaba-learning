@@ -2,7 +2,6 @@ package com.tyron.configuration;
 
 import com.alibaba.csp.sentinel.adapter.servlet.callback.WebCallbackManager;
 import com.tyron.handler.ExceptionHandler;
-import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
@@ -11,7 +10,7 @@ import javax.annotation.PostConstruct;
  * @Author: tyron
  * @Date: Created in 2021/5/5
  */
-@Configuration
+//@Configuration
 public class SentinelConfiguration {
 
     @PostConstruct
