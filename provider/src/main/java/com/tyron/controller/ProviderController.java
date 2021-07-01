@@ -59,7 +59,7 @@ public class ProviderController {
     private RocketMQTemplate rocketMQTemplate;
 
     @GetMapping("/create")
-    public Order create(){
+    public Order create() {
         Order order = new Order(
                 1,
                 "张三",
@@ -67,7 +67,27 @@ public class ProviderController {
                 "软件园",
                 new Date()
         );
-        this.rocketMQTemplate.convertAndSend("orderTopic",order);
+        this.rocketMQTemplate.convertAndSend("orderTopic", order);
         return order;
+    }
+
+    @GetMapping("/api1/demo1")
+    public String demo1() {
+        return "/api1/demo1";
+    }
+
+    @GetMapping("/api1/demo2")
+    public String demo2() {
+        return "/api1/demo2";
+    }
+
+    @GetMapping("/api2/demo1")
+    public String demo3() {
+        return "/api2/demo1";
+    }
+
+    @GetMapping("/api2/demo2")
+    public String demo4() {
+        return "/api2/demo2";
     }
 }

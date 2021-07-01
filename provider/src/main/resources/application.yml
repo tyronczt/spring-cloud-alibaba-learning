@@ -4,11 +4,11 @@ spring:
       discovery:
         server-addr: localhost:8848
     # sentinel的控制面板路径
-    sentinel:
-      transport:
-        dashboard: localhost:8080
-      filter:
-        enabled: false
+#    sentinel:
+#      transport:
+#        dashboard: localhost:8080
+#      filter:
+#        enabled: false
   application:
     name: provider
 server:
